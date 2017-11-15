@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.IO;
 using CrystalDecisions.Shared;
 using System.Web;
+using System;
 
 namespace POS_GasStationPharmacy.Controllers
 {
@@ -22,13 +23,13 @@ namespace POS_GasStationPharmacy.Controllers
             _context = new PGSDbContext();
             cryRpt = new ReportDocument(); // instanciar crystal report 
         }
-        public HttpResponseMessage Get(report rep)
+        public HttpResponseMessage Get(int id, DateTime initial, DateTime final, int subsidairy, int cashier)
         {
             string fileName = "";
             int flag = 1;
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             response.Content = new StringContent("The report isn't available");
-            if (rep.id == 3)
+            if (id == 3)
             {
                 fileName = "LowInv";
             }

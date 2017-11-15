@@ -172,7 +172,6 @@
     <Compile Include="Models\medicine.cs" />
     <Compile Include="Models\PGSDbContext.cs" />
     <Compile Include="Models\pharmaceutical_house.cs" />
-    <Compile Include="Models\report.cs" />
     <Compile Include="Models\role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BestSelling.cs">
