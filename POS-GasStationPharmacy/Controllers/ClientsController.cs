@@ -16,10 +16,25 @@ namespace POS_GasStationPharmacy.Controllers
         {
             repository = new ClientsRepository();
         }
-
+        public List<client> Get()
+        {
+            return repository.GetAllClients();
+        }
         public client Get(int id)
         {
             return repository.GetClientById(id);
+        }
+        public void Post(client cli)
+        {
+            repository.insertClient(cli);
+        }
+        public void Put(int id, client cli)
+        {
+            repository.updateClient(id, cli);
+        }
+        public void Delete(int id)
+        {
+            repository.deleteClient(id);
         }
     }
 }
