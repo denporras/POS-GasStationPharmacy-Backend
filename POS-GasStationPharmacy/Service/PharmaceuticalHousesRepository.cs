@@ -48,8 +48,5 @@ namespace POS_GasStationPharmacy.Service
             pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
 
         }
-
-
-
     }
 }
