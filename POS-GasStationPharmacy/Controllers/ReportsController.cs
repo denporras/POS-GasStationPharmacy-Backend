@@ -16,7 +16,7 @@ namespace POS_GasStationPharmacy.Controllers
         {
             repository = new ReportsRepository();
         }
-        public report Get(report rep)
+        public report Post(report rep)
         {
             return repository.GetReports(rep);
         }
