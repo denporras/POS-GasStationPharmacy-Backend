@@ -13,6 +13,5 @@ namespace POS_GasStationPharmacy.Models
         [Key]
         public int id_pharmaceutical_house { get; set; }
         public string name { get; set; }
-        public bool active { get; set; }
     }
 }
