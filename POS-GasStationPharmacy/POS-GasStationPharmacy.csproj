@@ -185,6 +185,7 @@
     <Compile Include="Models\medicine_by_subsidiary.cs" />
     <Compile Include="Models\PGSDbContext.cs" />
     <Compile Include="Models\pharmaceutical_house.cs" />
+    <Compile Include="Models\Response.cs" />
     <Compile Include="Models\role.cs" />
     <Compile Include="Models\sale.cs" />
     <Compile Include="Models\subsidiary.cs" />

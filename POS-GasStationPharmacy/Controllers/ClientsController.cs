@@ -24,17 +24,17 @@ namespace POS_GasStationPharmacy.Controllers
         {
             return repository.GetClientById(id);
         }
-        public void Post(client cli)
+        public Response Post(client cli)
         {
-            repository.insertClient(cli);
+            return repository.insertClient(cli);
         }
-        public void Put(int id, client cli)
+        public Response Put(int id, client cli)
         {
-            repository.updateClient(id, cli);
+            return repository.updateClient(id, cli);
         }
-        public void Delete(int id)
+        public Response Delete(int id)
         {
-            repository.deleteClient(id);
+            return repository.deleteClient(id);
         }
     }
 }

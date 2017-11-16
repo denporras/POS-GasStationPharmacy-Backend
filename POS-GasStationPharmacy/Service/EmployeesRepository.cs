@@ -1,4 +1,5 @@
-﻿using POS_GasStationPharmacy.Models;
+﻿using Npgsql;
+using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,26 +29,68 @@ namespace POS_GasStationPharmacy.Service
             return emp;
         }
 
-        public void insertEmployee(employee emp)
+        public Response insertEmployee(employee emp)
         {
-            var query = "SELECT insertEmployee(" + emp.id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'"+
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT insertEmployee(" + emp.id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'" +
             ", '" + emp.first_last_name + "', '" + emp.second_last_name + "', '" + emp.birthdate.ToString("MM/dd/yyyy") + "', '" + emp.user_name + "'" +
-            ", '" + emp.password + "', '" + emp.phone + "', '" + emp.residence + "', "+emp.role+", "+emp.subsidiary+")";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            ", '" + emp.password + "', '" + emp.phone + "', '" + emp.residence + "', " + emp.role + ", " + emp.subsidiary + ")";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateEmployee(int id_employee, employee emp)
+        public Response updateEmployee(int id_employee, employee emp)
         {
-            var query = "SELECT updateEmployee(" + id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'" +
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updateEmployee(" + id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'" +
            ", '" + emp.first_last_name + "', '" + emp.second_last_name + "', '" + emp.birthdate.ToString("MM/dd/yyyy") + "', '" + emp.user_name + "'" +
            ", '" + emp.password + "', '" + emp.phone + "', '" + emp.residence + "', " + emp.role + ", " + emp.subsidiary + ")";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteEmployee(int id_employee)
+        public Response deleteEmployee(int id_employee)
         {
-            var query = "SELECT deleteEmployee(" + id_employee + ")";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deleteEmployee(" + id_employee + ")";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }

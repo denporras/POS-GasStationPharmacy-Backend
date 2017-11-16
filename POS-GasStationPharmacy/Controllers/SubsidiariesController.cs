@@ -24,17 +24,17 @@ namespace POS_GasStationPharmacy.Controllers
         {
             return repository.GetSubsidiary(id);
         }
-        public void Post(subsidiary sub)
+        public Response Post(subsidiary sub)
         {
-            repository.insertSubsidiary(sub);
+            return repository.insertSubsidiary(sub);
         }
-        public void Put(int id, subsidiary sub)
+        public Response Put(int id, subsidiary sub)
         {
-            repository.updateSubsidiary(id, sub);
+            return repository.updateSubsidiary(id, sub);
         }
-        public void Delete(int id)
+        public Response Delete(int id)
         {
-            repository.deleteSubsidiary(id);
+            return repository.deleteSubsidiary(id);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace POS_GasStationPharmacy.Models
         public string password { get; set; }
         public string phone { get; set; }
         public string residence { get; set; }
-        public bool active { get; set; }
         public int role { get; set; }
         public int subsidiary { get; set; }
     }

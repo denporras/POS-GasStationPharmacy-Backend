@@ -1,4 +1,5 @@
-﻿using POS_GasStationPharmacy.Models;
+﻿using Npgsql;
+using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,22 +29,64 @@ namespace POS_GasStationPharmacy.Service
             return _role;
         }
 
-        public void insertRole(role rol)
+        public Response insertRole(role rol)
         {
-            var query = "SELECT insertRole('" + rol.name + "', '" + rol.description + "');";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT insertRole('" + rol.name + "', '" + rol.description + "');";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateRole(int id_role, role rol)
+        public Response updateRole(int id_role, role rol)
         {
-            var query = "SELECT updateRole(" + id_role + ", '" + rol.name + "', '" + rol.description + "')";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updateRole(" + id_role + ", '" + rol.name + "', '" + rol.description + "')";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteRole(int id_role)
+        public Response deleteRole(int id_role)
         {
-            var query = "SELECT deleteRole(" + id_role + ")";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deleteRole(" + id_role + ")";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
     }

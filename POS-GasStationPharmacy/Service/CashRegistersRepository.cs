@@ -1,4 +1,5 @@
-﻿using POS_GasStationPharmacy.Models;
+﻿using Npgsql;
+using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,25 +28,64 @@ namespace POS_GasStationPharmacy.Service
             return pharma;
         }
 
-        public void AddCashRegister(cash_register c)
+        public Response AddCashRegister(cash_register c)
         {
-            var query = "SELECT addcashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.initial_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + c.employee + ");";
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                         var query = "SELECT addcashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.initial_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + c.employee + ");";
             cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
-           
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;      
         }
 
-        public void UpdateCashRegister(cash_register c)
+        public Response UpdateCashRegister(cash_register c)
         {
-            var query = "SELECT updatecashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.employee + ",'" + c.final_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.final_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ");";
+           Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatecashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.employee + ",'" + c.final_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.final_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ");";
             cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
-
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void DeleteCashRegister(int cash, int subsidiary, int employee, DateTime initial_time)
+        public Response DeleteCashRegister(int cash, int subsidiary, int employee, DateTime initial_time)
         {
-            var query = "SELECT deletecashregister(" + cash + "," + subsidiary + ",'" + initial_time.ToString("yyy-mm-dd hh:mm") + "'," + employee + ");";
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletecashregister(" + cash + "," + subsidiary + ",'" + initial_time.ToString("yyy-mm-dd hh:mm") + "'," + employee + ");";
             cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
-
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }
