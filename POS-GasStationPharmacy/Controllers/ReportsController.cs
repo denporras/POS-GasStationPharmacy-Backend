@@ -29,32 +29,73 @@ namespace POS_GasStationPharmacy.Controllers
             int flag = 1;
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             response.Content = new StringContent("The report isn't available");
-            if (id == 3)
+            System.Diagnostics.Debug.WriteLine("Nombre " +" NOOOOOOOOOOO" + " VERGAAAAAAAAAAA");
+
+            if (id == 1)
+            {
+                fileName = "BestSelling";
+                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 11111111111111111");
+            }
+            else if (id == 2)
             {
                 fileName = "LowInv";
+                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
             }
+            else if (id == 3)
+            {
+                fileName = "LowInv";
+                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+            }
+            else if (id == 4)
+            {
+                fileName = "LowInv";
+                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+            }
+            else if (id == 5)
+            {
+                fileName = "LowInv";
+                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+            }
+
             else
             {
                 flag = 0;
             }
 
-            if (flag ==1)
+            if (flag == 1)
             {
-                CreatePDF(fileName + ".rpt");
-                response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
-                response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
-                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+                System.Diagnostics.Debug.WriteLine("Nombre "+fileName+" VERGAAAAAAAAAAA");
+
+                bool ready = CreatePDF(fileName + ".rpt", id, initial, final, subsidairy, cashier);
+
+                if (ready == true)
+                {
+
+                    response = new HttpResponseMessage(HttpStatusCode.OK);
+                    response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
+                    response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
+                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+                }
             }
+
 
             return response;
         }
 
         // Function used to create the pdf of the crystal repor
-        private bool CreatePDF(string rptFileName)
+        private bool CreatePDF(string rptFileName, int id, DateTime initial, DateTime final, int subsidairy, int cashier)
         {
+           
             cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + rptFileName));
+
+            if (id == 1)
+            {
+                cryRpt.SetParameterValue("Inidate", "2017-01-01");
+                cryRpt.SetParameterValue("Fidate", "2017-12-01");
+            }
+
+            
             //CREATE THE PDF FILE USING CRYSTAL REPORT AND SAVE IN SERVER
             cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + rptFileName));
             return true;
