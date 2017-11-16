@@ -19,8 +19,8 @@ namespace POS_GasStationPharmacy.Models
         [Key]
         public DateTime initial_time { get; set; }
         public DateTime final_time { get; set; }
-        public decimal initial_cash { get; set; }
-        public decimal final_cash { get; set; }
+        public float initial_cash { get; set; }
+        public float final_cash { get; set; }
 
     }
 }

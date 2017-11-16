@@ -7,13 +7,15 @@ using System.Web;
 
 namespace POS_GasStationPharmacy.Models
 {
-      [Table("medicine", Schema = "public")]
-    public class medicine
+
+       [Table("medicine_by_sale", Schema = "public")]
+    public class medicine_by_sale
     {
         [Key]
-        public int id_medicine { get; set; }
-        public String name { get; set; }
+        public int medicine { get; set; }
+        [Key]
+        public int sale { get; set; }
         public float price { get; set; }
-        public int pharmaceutical_house { get; set; }
+        public int quantity { get; set; }
     }
 }

@@ -210,6 +210,7 @@
       <DependentUpon>MedBySub.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Service\CashRegistersRepository.cs" />
     <Compile Include="Service\ClientsRepository.cs" />
     <Compile Include="Service\PharmaceuticalHousesRepository.cs" />
     <Compile Include="Service\ReportsRepository.cs" />
