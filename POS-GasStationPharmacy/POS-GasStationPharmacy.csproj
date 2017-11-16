@@ -179,6 +179,7 @@
     <Compile Include="Models\medicine.cs" />
     <Compile Include="Models\PGSDbContext.cs" />
     <Compile Include="Models\pharmaceutical_house.cs" />
+    <Compile Include="Models\Response.cs" />
     <Compile Include="Models\role.cs" />
     <Compile Include="Models\subsidiary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,6 +219,7 @@
       <DependentUpon>MedBySub.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Service\CashRegistersRepository.cs" />
     <Compile Include="Service\ClientsRepository.cs" />
     <Compile Include="Service\CompaniesRepository.cs" />
     <Compile Include="Service\EmployeesRepository.cs" />
