@@ -15,6 +15,5 @@ namespace POS_GasStationPharmacy.Models
         public DateTime birthdate { get; set; }
         public string phone { get; set; }
         public string residence { get; set; }
-        public bool active { get; set; }
     }
 }

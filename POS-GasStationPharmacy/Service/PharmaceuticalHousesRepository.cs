@@ -1,4 +1,5 @@
-﻿using POS_GasStationPharmacy.Models;
+﻿using Npgsql;
+using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,24 +30,65 @@ namespace POS_GasStationPharmacy.Service
             return pharma;
         }
 
-        public void AddPharmaceuticalHouse(pharmaceutical_house ph) {
-            var query = "SELECT addpharmaceuticalhouse('" + ph.name + "');";
-            pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
-           
+        public Response AddPharmaceuticalHouse(pharmaceutical_house ph) 
+        {
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT addpharmaceuticalhouse('" + ph.name + "');";
+                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void UpdatePharmaceuticalHouse(int id, pharmaceutical_house ph)
+        public Response UpdatePharmaceuticalHouse(int id, pharmaceutical_house ph)
         {
-            var query = "SELECT updatepharmaceuticalhouse(" + id + ",'" + ph.name + "');";
-            pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatepharmaceuticalhouse(" + id + ",'" + ph.name + "');";
+                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
 
         }
 
-        public void DeletePharmaceuticalHouse(int id)
+        public Response DeletePharmaceuticalHouse(int id)
         {
-            var query = "SELECT deletepharmaceuticalhouse(" + id + ");";
-            pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
-
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletepharmaceuticalhouse(" + id + ");";
+                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }

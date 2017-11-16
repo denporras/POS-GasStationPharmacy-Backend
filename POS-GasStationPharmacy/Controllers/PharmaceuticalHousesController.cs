@@ -27,19 +27,19 @@ namespace POS_GasStationPharmacy.Controllers
             return repository.GetPharmaceuticalHousebyId(id);
         }
 
-        public void Post(pharmaceutical_house ph)
+        public Response Post(pharmaceutical_house ph)
         {
-            repository.AddPharmaceuticalHouse(ph);
+            return repository.AddPharmaceuticalHouse(ph);
         }
 
 
-        public void Put(int id, pharmaceutical_house ph)
+        public Response Put(int id, pharmaceutical_house ph)
         {
-            repository.UpdatePharmaceuticalHouse(id, ph);
+            return repository.UpdatePharmaceuticalHouse(id, ph);
         }
-        public void Delete(int id)
+        public Response Delete(int id)
         {
-            repository.DeletePharmaceuticalHouse(id);
+            return repository.DeletePharmaceuticalHouse(id);
         }
          
 	}

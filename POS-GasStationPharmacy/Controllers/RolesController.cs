@@ -27,19 +27,19 @@ namespace POS_GasStationPharmacy.Controllers
             return repository.GetRole(id);
         }
 
-        public void Post(role rol)
+        public Response Post(role rol)
         {
-            repository.insertRole(rol);
+            return repository.insertRole(rol);
         }
 
-        public void Put(int id, role rol)
+        public Response Put(int id, role rol)
         {
-            repository.updateRole(id, rol);
+            return repository.updateRole(id, rol);
         }
 
-        public void Delete(int id)
+        public Response Delete(int id)
         {
-            repository.deleteRole(id);
+            return repository.deleteRole(id);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace POS_GasStationPharmacy.Models
         public int id_subsidiary { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public bool active { get; set; }
         public int company { get; set; }
     }
 }

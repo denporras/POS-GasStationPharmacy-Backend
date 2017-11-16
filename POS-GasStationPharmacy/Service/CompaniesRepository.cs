@@ -1,4 +1,5 @@
-﻿using POS_GasStationPharmacy.Models;
+﻿using Npgsql;
+using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,22 +29,64 @@ namespace POS_GasStationPharmacy.Service
             return sub;
         }
 
-        public void insertCompany(company cop)
+        public Response insertCompany(company cop)
         {
-            var query = "SELECT insertCompany(" + cop.id_company + ", '" + cop.name + "');";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT insertCompany(" + cop.id_company + ", '" + cop.name + "');";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateCompany(int id_company, company cop)
+        public Response updateCompany(int id_company, company cop)
         {
-            var query = "SELECT updateCompany(" + id_company + ", '" + cop.name + "');";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updateCompany(" + id_company + ", '" + cop.name + "');";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteCompany(int id_company)
+        public Response deleteCompany(int id_company)
         {
-            var query = "SELECT deleteCompany(" + id_company + ")";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deleteCompany(" + id_company + ")";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }
