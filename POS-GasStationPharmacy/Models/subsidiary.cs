@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace POS_GasStationPharmacy.Models
 {
-    public class role
+    public class subsidiary
     {
-        public int id_role { get; set; }
+        public int id_subsidiary { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public int company { get; set; }
     }
 }

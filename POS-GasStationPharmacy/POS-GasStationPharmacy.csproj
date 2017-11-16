@@ -160,19 +160,28 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CashRegistersController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\PharmaceuticalHousesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SubsidiariesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\cash_register.cs" />
     <Compile Include="Models\client.cs" />
+    <Compile Include="Models\company.cs" />
+    <Compile Include="Models\employee.cs" />
+    <Compile Include="Models\LogInResponse.cs" />
     <Compile Include="Models\medicine.cs" />
     <Compile Include="Models\PGSDbContext.cs" />
     <Compile Include="Models\pharmaceutical_house.cs" />
+    <Compile Include="Models\Response.cs" />
     <Compile Include="Models\role.cs" />
+    <Compile Include="Models\subsidiary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BestSelling.cs">
       <AutoGen>True</AutoGen>
@@ -212,9 +221,13 @@
     </Compile>
     <Compile Include="Service\CashRegistersRepository.cs" />
     <Compile Include="Service\ClientsRepository.cs" />
+    <Compile Include="Service\CompaniesRepository.cs" />
+    <Compile Include="Service\EmployeesRepository.cs" />
+    <Compile Include="Service\LogInRepository.cs" />
     <Compile Include="Service\PharmaceuticalHousesRepository.cs" />
     <Compile Include="Service\ReportsRepository.cs" />
     <Compile Include="Service\RolesRepository.cs" />
+    <Compile Include="Service\SubsidiariesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

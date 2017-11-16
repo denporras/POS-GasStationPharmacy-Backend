@@ -28,19 +28,19 @@ namespace POS_GasStationPharmacy.Controllers
             return repository.GetCashRegisterbyId(cash, subsidiary, employee, initial_time);
         }
 
-        public void Post(cash_register c)
+        public Response Post(cash_register c)
         {
-            repository.AddCashRegister(c);
+            return repository.AddCashRegister(c);
         }
 
 
-        public void Put(cash_register c)
+        public Response Put(cash_register c)
         {
-            repository.UpdateCashRegister(c);
+            return repository.UpdateCashRegister(c);
         }
-        public void Delete(int cash, int subsidiary, int employee, DateTime initial_time)
+        public Response Delete(int cash, int subsidiary, int employee, DateTime initial_time)
         {
-            repository.DeleteCashRegister(cash, subsidiary, employee, initial_time);
+            return repository.DeleteCashRegister(cash, subsidiary, employee, initial_time);
         }
  
     }

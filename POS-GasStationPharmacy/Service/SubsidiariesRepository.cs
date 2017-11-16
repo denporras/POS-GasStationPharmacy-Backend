@@ -5,32 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-
 namespace POS_GasStationPharmacy.Service
 {
-    public class PharmaceuticalHousesRepository
+    public class SubsidiariesRepository
     {
         PGSDbContext _context;
-        public PharmaceuticalHousesRepository()
+        public SubsidiariesRepository()
         {
             _context = new PGSDbContext();
         }
 
-        public List<pharmaceutical_house> GetAllPharmaceuticalHouses()
+        public List<subsidiary> GetAllRoles()
         {
-            var query = "SELECT * FROM getPharmaceuticalHouses();";
-            List<pharmaceutical_house> pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).ToList();
+            var query = "SELECT * FROM getSubsidiaries();";
+            List<subsidiary> pharma = _context.Database.SqlQuery<subsidiary>(query).ToList();
             return pharma;
         }
 
-        public pharmaceutical_house GetPharmaceuticalHousebyId(int id)
+        public subsidiary GetSubsidiary(int id_subsidiary)
         {
-            var query = "SELECT * FROM getPharmaceuticalHouse("+ id +");";
-            pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
-            return pharma;
+            var query = "SELECT * FROM getSubsidiary(" + id_subsidiary + ");";
+            subsidiary sub = _context.Database.SqlQuery<subsidiary>(query).FirstOrDefault();
+            return sub;
         }
 
-        public Response AddPharmaceuticalHouse(pharmaceutical_house ph) 
+        public Response insertSubsidiary(subsidiary sub)
         {
             Response res = new Response();
             res.success = true;
@@ -38,8 +37,29 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT addpharmaceuticalhouse('" + ph.name + "');";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+                var query = "SELECT insertSubsidiary('" + sub.name + "', '" + sub.description + "', " + sub.company + ");";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
+            
+        }
+
+        public Response updateSubsidiary(int id_subsdiary, subsidiary sub)
+        {
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updateSubsidiary(" + id_subsdiary + ", '" + sub.name + "', '" + sub.description + "', " + sub.company + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -50,7 +70,7 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
-        public Response UpdatePharmaceuticalHouse(int id, pharmaceutical_house ph)
+        public Response deleteSubsidiary(int id_subsidiary)
         {
             Response res = new Response();
             res.success = true;
@@ -58,29 +78,8 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatepharmaceuticalhouse(" + id + ",'" + ph.name + "');";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
-            }
-            catch (NpgsqlException ex)
-            {
-                res.success = false;
-                res.code = ex.Code;
-                res.message = ex.BaseMessage;
-            }
-            return res;
-
-        }
-
-        public Response DeletePharmaceuticalHouse(int id)
-        {
-            Response res = new Response();
-            res.success = true;
-            res.code = "1";
-            res.message = "SUCCESSFUL";
-            try
-            {
-                var query = "SELECT deletepharmaceuticalhouse(" + id + ");";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+                var query = "SELECT deleteSubsidiary(" + id_subsidiary + ")";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {

@@ -7,29 +7,29 @@ using System.Web;
 
 namespace POS_GasStationPharmacy.Service
 {
-    public class RolesRepository
+    public class EmployeesRepository
     {
         PGSDbContext _context;
-        public RolesRepository()
+        public EmployeesRepository()
         {
             _context = new PGSDbContext();
         }
 
-        public List<role> GetAllRoles()
+        public List<employee> GetEmployees()
         {
-            var query = "SELECT * FROM getRoles();";
-            List<role> pharma = _context.Database.SqlQuery<role>(query).ToList();
-            return pharma;
+            var query = "SELECT * FROM getEmployees();";
+            List<employee> emp = _context.Database.SqlQuery<employee>(query).ToList();
+            return emp;
         }
 
-        public role GetRole(int id_role)
+        public employee GetEmployeeById(int id_employee)
         {
-            var query = "SELECT * FROM getRole(" + id_role + ");";
-            role _role = _context.Database.SqlQuery<role>(query).FirstOrDefault();
-            return _role;
+            var query = "SELECT * FROM getEmployee(" + id_employee + ");";
+            employee emp = _context.Database.SqlQuery<employee>(query).FirstOrDefault();
+            return emp;
         }
 
-        public Response insertRole(role rol)
+        public Response insertEmployee(employee emp)
         {
             Response res = new Response();
             res.success = true;
@@ -37,7 +37,9 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT insertRole('" + rol.name + "', '" + rol.description + "');";
+                var query = "SELECT insertEmployee(" + emp.id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'" +
+            ", '" + emp.first_last_name + "', '" + emp.second_last_name + "', '" + emp.birthdate.ToString("MM/dd/yyyy") + "', '" + emp.user_name + "'" +
+            ", '" + emp.password + "', '" + emp.phone + "', '" + emp.residence + "', " + emp.role + ", " + emp.subsidiary + ")";
                 _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
@@ -49,7 +51,7 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
-        public Response updateRole(int id_role, role rol)
+        public Response updateEmployee(int id_employee, employee emp)
         {
             Response res = new Response();
             res.success = true;
@@ -57,7 +59,9 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updateRole(" + id_role + ", '" + rol.name + "', '" + rol.description + "')";
+                var query = "SELECT updateEmployee(" + id_employee + ", '" + emp.first_name + "', '" + emp.second_name + "'" +
+           ", '" + emp.first_last_name + "', '" + emp.second_last_name + "', '" + emp.birthdate.ToString("MM/dd/yyyy") + "', '" + emp.user_name + "'" +
+           ", '" + emp.password + "', '" + emp.phone + "', '" + emp.residence + "', " + emp.role + ", " + emp.subsidiary + ")";
                 _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
@@ -69,7 +73,7 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
-        public Response deleteRole(int id_role)
+        public Response deleteEmployee(int id_employee)
         {
             Response res = new Response();
             res.success = true;
@@ -77,7 +81,7 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT deleteRole(" + id_role + ")";
+                var query = "SELECT deleteEmployee(" + id_employee + ")";
                 _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
@@ -88,6 +92,5 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
     }
 }

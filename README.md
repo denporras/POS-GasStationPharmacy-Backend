@@ -11,4 +11,4 @@ Dado el éxito que han tenido los anteriores desarrollos del departamento de TI 
 
 # Intrucciones
 
-1- Por definir
+1- Correr el proyecto.
