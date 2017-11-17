@@ -1,4 +1,4 @@
-﻿using NpgsqlTypes;
+﻿using Npgsql;
 using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
@@ -43,22 +43,67 @@ namespace POS_GasStationPharmacy.Service
             return ms;
         }
 
-        public void insertMedicinebySubsidiary(medicine_by_subsidiary ms)
+        public Response insertMedicinebySubsidiary(medicine_by_subsidiary ms)
         {
-            var query = "SELECT addmedicine_by_subsidiary(" + ms.medicine + "," + ms.subsidiary + "," + ms.quantity + ");";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT addmedicine_by_subsidiary(" + ms.medicine + "," + ms.subsidiary + "," + ms.quantity + "," + ms.stock_promedio + "," + ms.stock_minimo + ");";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateMedicinebySubsidiary(int idm, int ids, medicine_by_subsidiary ms)
+        public Response updateMedicinebySubsidiary(int idm, int ids, medicine_by_subsidiary ms)
         {
-            var query = "SELECT updatemedicine_by_subsidiary(" + idm + "," + ids + "," + ms.quantity + "');";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatemedicine_by_subsidiary(" + idm + "," + ids + "," + ms.quantity + "," + ms.stock_promedio + "," + ms.stock_minimo + "');";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteMedicinebySubsidiary(int idm, int ids)
+        public Response deleteMedicinebySubsidiary(int idm, int ids)
         {
-            var query = "SELECT deletemedicine_by_subsidiary(" + idm + "," + ids + ");";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletemedicine_by_subsidiary(" + idm + "," + ids + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }
