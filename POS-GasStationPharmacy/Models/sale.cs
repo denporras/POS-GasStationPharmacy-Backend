@@ -18,5 +18,6 @@ namespace POS_GasStationPharmacy.Models
         public int employee { get; set; }
         public int subsidiary { get; set; }
         public int cash { get; set; }
+        public List<medicine_by_sale> medicines { get; set; }
     }
 }
