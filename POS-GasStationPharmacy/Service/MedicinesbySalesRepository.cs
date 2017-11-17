@@ -29,17 +29,17 @@ namespace POS_GasStationPharmacy.Service
             return ms;
         }
 
-        public medicine_by_sale GetMedicinebySaleBySale(int id)
+        public List<medicine_by_sale> GetMedicinebySaleBySale(int id)
         {
             var query = "SELECT * FROM getmedicine_by_sale_by_sale(" + id + ");";
-            medicine_by_sale ms = _context.Database.SqlQuery<medicine_by_sale>(query).FirstOrDefault();
+            List<medicine_by_sale> ms = _context.Database.SqlQuery<medicine_by_sale>(query).ToList();
             return ms;
         }
 
-        public medicine_by_sale GetMedicinebySaleByMedicine(int id)
+        public List<medicine_by_sale> GetMedicinebySaleByMedicine(int id)
         {
             var query = "SELECT * FROM getmedicine_by_sale_by_medicine(" + id + ");";
-            medicine_by_sale ms = _context.Database.SqlQuery<medicine_by_sale>(query).FirstOrDefault();
+            List<medicine_by_sale> ms = _context.Database.SqlQuery<medicine_by_sale>(query).ToList();
             return ms;
         }
 
