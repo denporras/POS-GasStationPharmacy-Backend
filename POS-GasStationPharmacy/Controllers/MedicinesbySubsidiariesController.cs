@@ -26,7 +26,7 @@ namespace POS_GasStationPharmacy.Controllers
             return repository.GetMedicinebySubsidiaryById(idm, ids);
         }
 
-        public medicine_by_subsidiary Get(int id, String type)
+        public List<medicine_by_subsidiary> Get(int id, String type)
         {
             if (type.Equals("m"))
             {

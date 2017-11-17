@@ -26,7 +26,7 @@ namespace POS_GasStationPharmacy.Controllers
             return repository.GetMedicinebySaleById(idm,ids);
         }
 
-        public medicine_by_sale Get(int id, String type)
+        public List<medicine_by_sale> Get(int id, String type)
         {
             if (type.Equals("m"))
             {
