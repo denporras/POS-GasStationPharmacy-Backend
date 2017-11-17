@@ -23,7 +23,7 @@ namespace POS_GasStationPharmacy.Controllers
             _context = new PGSDbContext();
             cryRpt = new ReportDocument(); // instanciar crystal report 
         }
-        public HttpResponseMessage Get(int id, DateTime initial, DateTime final, int subsidairy, int cashier)
+        public HttpResponseMessage Get(int id, DateTime initial, DateTime final, int subsidairy,  int company, int lowInv)
         {
             string fileName = "";
             int flag = 1;
@@ -34,27 +34,46 @@ namespace POS_GasStationPharmacy.Controllers
             if (id == 1)
             {
                 fileName = "BestSelling";
-                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 11111111111111111");
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName+ ".rpt"));
+                cryRpt.SetParameterValue("Inidate", initial);
+                cryRpt.SetParameterValue("Fidate", final);
+                cryRpt.SetParameterValue("Compa", company);
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+
+               
             }
             else if (id == 2)
             {
-                fileName = "LowInv";
-                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+                fileName = "MedBySubEm";
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+                cryRpt.SetParameterValue("Compa", company);
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+                
             }
             else if (id == 3)
             {
                 fileName = "LowInv";
-                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+                cryRpt.SetParameterValue("Compa", company);
+                cryRpt.SetParameterValue("lowInv", lowInv);
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
             }
             else if (id == 4)
             {
-                fileName = "LowInv";
-                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+                fileName = "CashAVG";
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+                cryRpt.SetParameterValue("Compa", company);
+                cryRpt.SetParameterValue("DateDay", initial);
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
             }
             else if (id == 5)
             {
-                fileName = "LowInv";
-                System.Diagnostics.Debug.WriteLine(" VERGAAAAAAAAAAA 3333333333");
+                fileName = "BillsDay";
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+                cryRpt.SetParameterValue("Compa", company);
+
+                cryRpt.SetParameterValue("DateDay", initial);
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
             }
 
             else
@@ -64,41 +83,16 @@ namespace POS_GasStationPharmacy.Controllers
 
             if (flag == 1)
             {
-                System.Diagnostics.Debug.WriteLine("Nombre "+fileName+" VERGAAAAAAAAAAA");
-
-                bool ready = CreatePDF(fileName + ".rpt", id, initial, final, subsidairy, cashier);
-
-                if (ready == true)
-                {
-
-                    response = new HttpResponseMessage(HttpStatusCode.OK);
-                    response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
-                    response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                    response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
-                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
-                }
+                response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
+                response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+         
             }
 
 
             return response;
-        }
-
-        // Function used to create the pdf of the crystal repor
-        private bool CreatePDF(string rptFileName, int id, DateTime initial, DateTime final, int subsidairy, int cashier)
-        {
-           
-            cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + rptFileName));
-
-            if (id == 1)
-            {
-                cryRpt.SetParameterValue("Inidate", "2017-01-01");
-                cryRpt.SetParameterValue("Fidate", "2017-12-01");
-            }
-
-            
-            //CREATE THE PDF FILE USING CRYSTAL REPORT AND SAVE IN SERVER
-            cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + rptFileName));
-            return true;
         }
     }
         
