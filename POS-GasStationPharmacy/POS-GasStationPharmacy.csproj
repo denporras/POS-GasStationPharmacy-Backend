@@ -207,16 +207,10 @@
       <DependentUpon>LowInv.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\MedByEm.cs">
+    <Compile Include="Reports\MedBySubEm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MedByEm.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MedBySub.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MedBySub.rpt</DependentUpon>
+      <DependentUpon>MedBySubEm.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service\CashRegistersRepository.cs" />
@@ -302,13 +296,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>LowInv.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\MedByEm.rpt">
+    <EmbeddedResource Include="Reports\MedBySubEm.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>MedByEm.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\MedBySub.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>MedBySub.cs</LastGenOutput>
+      <LastGenOutput>MedBySubEm.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
