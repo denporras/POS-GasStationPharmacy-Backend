@@ -16,14 +16,14 @@ namespace POS_GasStationPharmacy.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class MedBySub : ReportClass {
+    public class MedBySubEm : ReportClass {
         
-        public MedBySub() {
+        public MedBySubEm() {
         }
         
         public override string ResourceName {
             get {
-                return "MedBySub.rpt";
+                return "MedBySubEm.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace POS_GasStationPharmacy.Reports {
         
         public override string FullResourceName {
             get {
-                return "POS_GasStationPharmacy.Reports.MedBySub.rpt";
+                return "POS_GasStationPharmacy.Reports.MedBySubEm.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,20 @@ namespace POS_GasStationPharmacy.Reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_Compa {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedMedBySub : Component, ICachedReport {
+    public class CachedMedBySubEm : Component, ICachedReport {
         
-        public CachedMedBySub() {
+        public CachedMedBySubEm() {
         }
         
         [Browsable(false)]
@@ -129,7 +137,7 @@ namespace POS_GasStationPharmacy.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            MedBySub rpt = new MedBySub();
+            MedBySubEm rpt = new MedBySubEm();
             rpt.Site = this.Site;
             return rpt;
         }
