@@ -1,4 +1,4 @@
-﻿using NpgsqlTypes;
+﻿using Npgsql;
 using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
@@ -43,22 +43,67 @@ namespace POS_GasStationPharmacy.Service
             return ms;
         }
 
-        public void insertMedicinebySale(medicine_by_sale ms)
+        public Response insertMedicinebySale(medicine_by_sale ms)
         {
-            var query = "SELECT addmedicine_by_sale(" + ms.sale + "," + ms.medicine + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + ");";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT addmedicine_by_sale(" + ms.sale + "," + ms.medicine + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + ");";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateMedicinebySale(int idm, int ids, medicine_by_sale ms)
+        public Response updateMedicinebySale(int idm, int ids, medicine_by_sale ms)
         {
-            var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + "');";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + "');";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteMedicinebySale(int idm, int ids)
+        public Response deleteMedicinebySale(int idm, int ids)
         {
-            var query = "SELECT deletemedicine_by_sale(" + ids + "," + idm + ");";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+         
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletemedicine_by_sale(" + ids + "," + idm + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }

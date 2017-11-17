@@ -16,5 +16,7 @@ namespace POS_GasStationPharmacy.Models
         [Key]
         public int subsidiary { get; set; }
         public int quantity { get; set; }
+        public int stock_promedio { get; set; }
+        public int stock_minimo { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using NpgsqlTypes;
+﻿using Npgsql;
 using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
@@ -29,22 +29,67 @@ namespace POS_GasStationPharmacy.Service
             return sal;
         }
 
-        public void insertSale(sale sal)
+        public Response insertSale(sale sal)
         {
-            var query = "SELECT addsale(" + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + ");";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT addsale(" + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + ");";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateSale(int id, sale sal)
+        public Response updateSale(int id, sale sal)
         {
-            var query = "SELECT updatesale(" + id + ","+sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + "');";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatesale(" + id + "," + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + "');";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteSale(int id)
+        public Response deleteSale(int id)
         {
-            var query = "SELECT deletesale(" + id + ");";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletesale(" + id + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }

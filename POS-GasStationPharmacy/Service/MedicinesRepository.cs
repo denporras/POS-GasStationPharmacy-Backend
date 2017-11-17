@@ -1,4 +1,4 @@
-﻿using NpgsqlTypes;
+﻿using Npgsql;
 using POS_GasStationPharmacy.Models;
 using System;
 using System.Collections.Generic;
@@ -28,22 +28,67 @@ namespace POS_GasStationPharmacy.Service
             return med;
         }
 
-        public void insertMedicine(medicine med)
+        public Response insertMedicine(medicine med)
         {
-            var query = "SELECT addmedicine('" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + ");";
-            _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+         
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT addmedicine('" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + ");";
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void updateMedicine(int id, medicine med)
+        public Response updateMedicine(int id, medicine med)
         {
-            var query = "SELECT updatemedicine(" + id + ", '" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + "');";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+           
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT updatemedicine(" + id + ", '" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + "');";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
 
-        public void deleteMedicine(int id)
+        public Response deleteMedicine(int id)
         {
-            var query = "SELECT deletemedicine(" + id + ");";
-            _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+          
+            Response res = new Response();
+            res.success = true;
+            res.code = "1";
+            res.message = "SUCCESSFUL";
+            try
+            {
+                var query = "SELECT deletemedicine(" + id + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+            }
+            catch (NpgsqlException ex)
+            {
+                res.success = false;
+                res.code = ex.Code;
+                res.message = ex.BaseMessage;
+            }
+            return res;
         }
     }
 }
