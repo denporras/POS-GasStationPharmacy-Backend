@@ -12,8 +12,8 @@ namespace POS_GasStationPharmacy.Controllers
 {
     public class MedicinesbySubsidiariesController : ApiController
     {
-           MedicinesbySubsidiariesRepository repository;
-           public MedicinesbySubsidiariesController()
+        MedicinesbySubsidiariesRepository repository;
+        public MedicinesbySubsidiariesController()
         {
             repository = new MedicinesbySubsidiariesRepository();
         }
@@ -37,17 +37,17 @@ namespace POS_GasStationPharmacy.Controllers
                 return repository.GetMedicinebySubsidiaryBySubsidiary(id);
             }
         }
-        public void Post(medicine_by_subsidiary ms)
+        public Response Post(medicine_by_subsidiary ms)
         {
-            repository.insertMedicinebySubsidiary(ms);
+           return repository.insertMedicinebySubsidiary(ms);
         }
-        public void Put(int idm, int ids, medicine_by_subsidiary ms)
+        public Response Put(int idm, int ids, medicine_by_subsidiary ms)
         {
-            repository.updateMedicinebySubsidiary(idm, ids, ms);
+            return repository.updateMedicinebySubsidiary(idm, ids, ms);
         }
-        public void Delete(int idm, int ids)
+        public Response Delete(int idm, int ids)
         {
-            repository.deleteMedicinebySubsidiary(idm,ids);
+            return repository.deleteMedicinebySubsidiary(idm, ids);
         }
     }
 }

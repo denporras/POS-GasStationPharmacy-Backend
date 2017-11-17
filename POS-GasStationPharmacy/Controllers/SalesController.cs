@@ -11,7 +11,7 @@ namespace POS_GasStationPharmacy.Controllers
 {
     public class SalesController : ApiController
     {
-           SalesRepository repository;
+        SalesRepository repository;
         public SalesController()
         {
             repository = new SalesRepository();
@@ -24,17 +24,17 @@ namespace POS_GasStationPharmacy.Controllers
         {
             return repository.GetSaleById(id);
         }
-        public void Post(sale sale)
+        public Response Post(sale sale)
         {
-            repository.insertSale(sale);
+            return repository.insertSale(sale);
         }
-        public void Put(int id, sale sale)
+        public Response Put(int id, sale sale)
         {
-            repository.updateSale(id, sale);
+            return repository.updateSale(id, sale);
         }
-        public void Delete(int id)
+        public Response Delete(int id)
         {
-            repository.deleteSale(id);
+            return repository.deleteSale(id);
         }
     }
 }

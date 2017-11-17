@@ -37,17 +37,17 @@ namespace POS_GasStationPharmacy.Controllers
                 return repository.GetMedicinebySaleBySale(id);
             }
         }
-        public void Post(medicine_by_sale ms)
+        public Response Post(medicine_by_sale ms)
         {
-            repository.insertMedicinebySale(ms);
+            return repository.insertMedicinebySale(ms);
         }
-        public void Put(int idm,int ids, medicine_by_sale ms)
+        public Response Put(int idm,int ids, medicine_by_sale ms)
         {
-            repository.updateMedicinebySale(idm,ids, ms);
+            return repository.updateMedicinebySale(idm,ids, ms);
         }
-        public void Delete(int idm, int ids)
+        public Response Delete(int idm, int ids)
         {
-            repository.deleteMedicinebySale(idm,ids);
+            return repository.deleteMedicinebySale(idm,ids);
         }
     }
 }
