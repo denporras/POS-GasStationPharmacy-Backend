@@ -23,13 +23,12 @@ namespace POS_GasStationPharmacy.Controllers
             _context = new PGSDbContext();
             cryRpt = new ReportDocument(); // instanciar crystal report 
         }
-        public HttpResponseMessage Get(int id, DateTime initial, DateTime final, int subsidairy,  int company, int lowInv)
+        public HttpResponseMessage Get(int id, DateTime initial, DateTime final, int company)
         {
             string fileName = "";
             int flag = 1;
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             response.Content = new StringContent("The report isn't available");
-            System.Diagnostics.Debug.WriteLine("Nombre " +" NOOOOOOOOOOO" + " VERGAAAAAAAAAAA");
 
             if (id == 1)
             {
@@ -39,8 +38,6 @@ namespace POS_GasStationPharmacy.Controllers
                 cryRpt.SetParameterValue("Fidate", final);
                 cryRpt.SetParameterValue("Compa", company);
                 cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
-
-               
             }
             else if (id == 2)
             {
@@ -48,14 +45,13 @@ namespace POS_GasStationPharmacy.Controllers
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
                 cryRpt.SetParameterValue("Compa", company);
                 cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
-                
             }
             else if (id == 3)
             {
                 fileName = "LowInv";
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
                 cryRpt.SetParameterValue("Compa", company);
-                cryRpt.SetParameterValue("lowInv", lowInv);
+                //cryRpt.SetParameterValue("lowInv", lowInv);
                 cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
             }
             else if (id == 4)
@@ -85,7 +81,7 @@ namespace POS_GasStationPharmacy.Controllers
             {
                 response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
-                response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("inline");
                 response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
                 response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
          
