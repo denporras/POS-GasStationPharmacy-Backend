@@ -14,6 +14,9 @@ namespace POS_GasStationPharmacy.Service
             _context = new PGSDbContext();
         }
 
+        /**
+        * GET request that get all cash registers
+        */ 
         public List<cash_register> GetAllCashRegisters()
         {
             var query = "SELECT * FROM getcashregisters();";
@@ -21,6 +24,9 @@ namespace POS_GasStationPharmacy.Service
             return pharma;
         }
 
+        /**
+        * GET request that get one cash register
+        */ 
         public cash_register GetCashRegisterbyId(int cash, int subsidiary, int employee, DateTime initial_time)
         {
             var query = "SELECT * FROM getcashregister(" + cash + "," + subsidiary + ",'" + initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + employee + ");";
@@ -28,6 +34,9 @@ namespace POS_GasStationPharmacy.Service
             return pharma;
         }
 
+        /**
+        * POST request that inserts a cash register
+        */ 
         public Response AddCashRegister(cash_register c)
         {
             Response res = new Response();
@@ -48,6 +57,9 @@ namespace POS_GasStationPharmacy.Service
             return res;      
         }
 
+        /**
+        * PUT request that updates a cash register
+        */ 
         public Response UpdateCashRegister(cash_register c)
         {
            Response res = new Response();
@@ -68,6 +80,9 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
+        /**
+        * DELETE request that disable a cash register
+        */ 
         public Response DeleteCashRegister(int cash, int subsidiary, int employee, DateTime initial_time)
         {
             Response res = new Response();
