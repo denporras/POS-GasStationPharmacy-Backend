@@ -15,7 +15,9 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+       * GET request that get all sales
+       */ 
         public List<sale> GetAllSales()
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
@@ -27,7 +29,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return sal;
         }
-
+        /**
+     * GET request that get one sales
+     */ 
         public sale GetSaleById (int id)
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
@@ -36,7 +40,9 @@ namespace POS_GasStationPharmacy.Service
             sal.medicines = msrep.GetMedicinebySaleBySale(sal.id_sale);
             return sal;
         }
-
+        /**
+     * POST request that inserts a sale
+     */
         public Response insertSale(sale sal)
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
@@ -63,7 +69,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+     * PUT request that updates a sale
+     */
         public Response updateSale(int id, sale sal)
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
@@ -88,7 +96,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * DELETE request that disable a sale
+        */ 
         public Response deleteSale(int id)
         {
            
