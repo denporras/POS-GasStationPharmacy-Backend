@@ -74,7 +74,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT updatesale(" + id + "," + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + "');";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
                 for (int i = 0; i < sal.medicines.Count(); i++)
                 {
                     msrep.updateMedicinebySale(sal.medicines[i].medicine, id, sal.medicines[i]);
@@ -99,7 +99,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT deletesale(" + id + ");";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
