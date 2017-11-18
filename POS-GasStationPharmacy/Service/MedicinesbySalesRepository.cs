@@ -14,35 +14,45 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all medicines by sale
+        */ 
         public List<medicine_by_sale> GetAllMedicinesbySales()
         {
             var query = "SELECT * FROM getmedicines_by_sales()";
             List<medicine_by_sale> ms = _context.Database.SqlQuery<medicine_by_sale>(query).ToList();
             return ms;
         }
-
+        /**
+      * GET request that get one medicine by sale
+      */ 
         public medicine_by_sale GetMedicinebySaleById (int idm, int ids)
         {
             var query = "SELECT * FROM getmedicine_by_sale(" + ids +","+ idm + ");";
             medicine_by_sale ms = _context.Database.SqlQuery<medicine_by_sale>(query).FirstOrDefault();
             return ms;
         }
-
+        /**
+      * GET request that get one medicine by sale
+      */ 
         public List<medicine_by_sale> GetMedicinebySaleBySale(int id)
         {
             var query = "SELECT * FROM getmedicine_by_sale_by_sale(" + id + ");";
             List<medicine_by_sale> ms = _context.Database.SqlQuery<medicine_by_sale>(query).ToList();
             return ms;
         }
-
+        /**
+      * GET request that get one medicine by sale
+      */ 
         public List<medicine_by_sale> GetMedicinebySaleByMedicine(int id)
         {
             var query = "SELECT * FROM getmedicine_by_sale_by_medicine(" + id + ");";
             List<medicine_by_sale> ms = _context.Database.SqlQuery<medicine_by_sale>(query).ToList();
             return ms;
         }
-
+        /**
+        * POST request that inserts a medicine by sale
+       */
         public Response insertMedicinebySale(medicine_by_sale ms)
         {
            
@@ -63,7 +73,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+      * PUT request that updates a medicine by sale
+      */ 
         public Response updateMedicinebySale(int idm, int ids, medicine_by_sale ms)
         {
            
@@ -73,8 +85,10 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + "');";
-                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+
+                var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+
             }
             catch (NpgsqlException ex)
             {
@@ -84,7 +98,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+       * DELETE request that disable a medicine by sale
+       */ 
         public Response deleteMedicinebySale(int idm, int ids)
         {
          

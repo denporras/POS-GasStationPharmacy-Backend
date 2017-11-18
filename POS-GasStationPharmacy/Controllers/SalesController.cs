@@ -11,27 +11,45 @@ namespace POS_GasStationPharmacy.Controllers
 {
     public class SalesController : ApiController
     {
+        /**
+   * Controller that does all the HTTP requests of sales
+   */ 
         SalesRepository repository;
         public SalesController()
         {
             repository = new SalesRepository();
         }
+        /**
+        * GET request that get all sales
+        */ 
         public List<sale> Get()
         {
             return repository.GetAllSales();
         }
+        /**
+       * GET request that get one sales
+       */ 
         public sale Get(int id)
         {
             return repository.GetSaleById(id);
         }
+        /**
+       * POST request that inserts a sale
+       */
         public Response Post(sale sale)
         {
             return repository.insertSale(sale);
         }
+        /**
+       * PUT request that updates a sale
+       */
         public Response Put(int id, sale sale)
         {
             return repository.updateSale(id, sale);
         }
+        /**
+         * DELETE request that disable a sale
+         */ 
         public Response Delete(int id)
         {
             return repository.deleteSale(id);

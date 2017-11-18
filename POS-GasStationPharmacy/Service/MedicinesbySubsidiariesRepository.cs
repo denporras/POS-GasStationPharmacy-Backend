@@ -14,35 +14,45 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all medicines by subsidiaries
+        */ 
         public List<medicine_by_subsidiary> GetAllMedicinesbySubsidiaries()
         {
             var query = "SELECT * FROM getmedicines_by_subsidiaries()";
             List<medicine_by_subsidiary> ms = _context.Database.SqlQuery<medicine_by_subsidiary>(query).ToList();
             return ms;
         }
-
+        /**
+   * GET request that get one medicine by subsidiary
+   */ 
         public medicine_by_subsidiary GetMedicinebySubsidiaryById (int idm, int ids)
         {
             var query = "SELECT * FROM getmedicine_by_subsidiary(" + idm +","+ ids + ");";
             medicine_by_subsidiary ms = _context.Database.SqlQuery<medicine_by_subsidiary>(query).FirstOrDefault();
             return ms;
         }
-
+        /**
+   * GET request that get one medicine by subsidiary
+   */ 
         public List<medicine_by_subsidiary> GetMedicinebySubsidiaryBySubsidiary(int id)
         {
             var query = "SELECT * FROM getmedicine_by_subsidiary_by_subsidiary(" + id + ");";
             List<medicine_by_subsidiary> ms = _context.Database.SqlQuery<medicine_by_subsidiary>(query).ToList();
             return ms;
         }
-
+        /**
+         * GET request that get one medicine by subsidiary
+        */ 
         public List<medicine_by_subsidiary> GetMedicinebySubsidiaryByMedicine(int id)
         {
             var query = "SELECT * FROM getmedicine_by_subsidiary_by_medicine(" + id + ");";
             List<medicine_by_subsidiary> ms = _context.Database.SqlQuery<medicine_by_subsidiary>(query).ToList();
             return ms;
         }
-
+        /**
+       * POST request that inserts a medicine by subsidiary
+       */
         public Response insertMedicinebySubsidiary(medicine_by_subsidiary ms)
         {
             
@@ -63,7 +73,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+  * PUT request that updates a medicine by subsidiary
+  */ 
         public Response updateMedicinebySubsidiary(int idm, int ids, medicine_by_subsidiary ms)
         {
            
@@ -73,8 +85,8 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatemedicine_by_subsidiary(" + idm + "," + ids + "," + ms.quantity + "," + ms.stock_promedio + "," + ms.stock_minimo + "');";
-                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
+                var query = "SELECT updatemedicine_by_subsidiary(" + idm + "," + ids + "," + ms.quantity + "," + ms.stock_promedio + "," + ms.stock_minimo + ");";
+                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -84,7 +96,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+     * DELETE request that disable a medicine by subsidiary
+     */ 
         public Response deleteMedicinebySubsidiary(int idm, int ids)
         {
            

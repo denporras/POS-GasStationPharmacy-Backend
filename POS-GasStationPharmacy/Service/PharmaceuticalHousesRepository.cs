@@ -15,21 +15,27 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+     * GET request that get all pharmaceutical houses
+     */ 
         public List<pharmaceutical_house> GetAllPharmaceuticalHouses()
         {
             var query = "SELECT * FROM getPharmaceuticalHouses();";
             List<pharmaceutical_house> pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).ToList();
             return pharma;
         }
-
+        /**
+     * GET request that get one pharmaceutical house
+     */
         public pharmaceutical_house GetPharmaceuticalHousebyId(int id)
         {
             var query = "SELECT * FROM getPharmaceuticalHouse("+ id +");";
             pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
             return pharma;
         }
-
+        /**
+      * POST request that inserts a pharmaceutical house
+      */
         public Response AddPharmaceuticalHouse(pharmaceutical_house ph) 
         {
             Response res = new Response();
@@ -49,7 +55,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+      * PUT request that updates a pharmaceutical house
+      */
         public Response UpdatePharmaceuticalHouse(int id, pharmaceutical_house ph)
         {
             Response res = new Response();
@@ -70,7 +78,9 @@ namespace POS_GasStationPharmacy.Service
             return res;
 
         }
-
+        /**
+        * DELETE request that disable a pharmaceutical house
+        */ 
         public Response DeletePharmaceuticalHouse(int id)
         {
             Response res = new Response();
