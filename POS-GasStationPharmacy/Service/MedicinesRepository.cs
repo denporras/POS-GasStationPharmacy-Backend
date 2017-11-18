@@ -14,6 +14,9 @@ namespace POS_GasStationPharmacy.Service
             _context = new PGSDbContext();
         }
 
+        /**
+        * GET request that get all medicines
+        */ 
         public List<medicine> GetAllMedicines()
         {
             var query = "SELECT * FROM getmedicines()";
@@ -21,6 +24,9 @@ namespace POS_GasStationPharmacy.Service
             return med;
         }
 
+        /**
+        * GET request that get one medicine
+        */ 
         public medicine GetMedicineById (int id)
         {
             var query = "SELECT * FROM getmedicine(" + id + ");";
@@ -28,6 +34,9 @@ namespace POS_GasStationPharmacy.Service
             return med;
         }
 
+        /**
+        * POST request that inserts a medicine
+        */
         public Response insertMedicine(medicine med)
         {
          
@@ -49,6 +58,9 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
+        /**
+         * PUT request that updates a medicine
+        */ 
         public Response updateMedicine(int id, medicine med)
         {
            
@@ -58,7 +70,7 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatemedicine(" + id + ", '" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + "');";
+                var query = "SELECT updatemedicine(" + id + ", '" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + ");";
                 _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
@@ -70,6 +82,9 @@ namespace POS_GasStationPharmacy.Service
             return res;
         }
 
+        /**
+        * DELETE request that disable a medicine
+        */
         public Response deleteMedicine(int id)
         {
           
