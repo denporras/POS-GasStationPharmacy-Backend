@@ -85,7 +85,7 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + "');";
+                var query = "SELECT updatemedicine_by_sale(" + ids + "," + idm + "," + ms.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + ms.quantity + ");";
                 _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
