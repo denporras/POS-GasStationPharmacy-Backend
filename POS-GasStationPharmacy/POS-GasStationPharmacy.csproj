@@ -188,6 +188,8 @@
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\role.cs" />
     <Compile Include="Models\sale.cs" />
+    <Compile Include="Models\SalesResponse.cs" />
+    <Compile Include="Models\sale_by_payment_type.cs" />
     <Compile Include="Models\subsidiary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BestSelling.cs">

@@ -29,6 +29,29 @@ namespace POS_GasStationPharmacy.Service
             }
             return sal;
         }
+
+        /**
+     * GET request that get sales by payment type
+     */
+        public sale_by_payment_type GetSalesByPaymentType(int sub, int cash, DateTime date)
+        {
+            MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
+            sale_by_payment_type spt = new sale_by_payment_type();
+            var query = "SELECT * FROM getsalebypayment("+ sub +","+ cash +","+ 1 + ",'" + date + "')";
+                spt.credit = _context.Database.SqlQuery<sale>(query).ToList();
+            var query2 = "SELECT * FROM getsalebypayment(" + sub + "," + cash + "," + 2 + ",'" + date + "')";
+                spt.cash = _context.Database.SqlQuery<sale>(query2).ToList();
+            for (int i = 0; i < spt.credit.Count(); i++)
+            {
+                spt.credit[i].medicines = msrep.GetMedicinebySaleBySale(spt.credit[i].id_sale);
+            }
+            for (int i = 0; i < spt.cash.Count(); i++)
+            {
+                spt.cash[i].medicines = msrep.GetMedicinebySaleBySale(spt.cash[i].id_sale);
+            }
+            return spt;
+        }
+
         /**
      * GET request that get one sales
      */ 
@@ -43,21 +66,23 @@ namespace POS_GasStationPharmacy.Service
         /**
      * POST request that inserts a sale
      */
-        public Response insertSale(sale sal)
+        public SalesResponse insertSale(sale sal)
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
-            Response res = new Response();
+            SalesResponse res = new SalesResponse();
             res.success = true;
             res.code = "1";
             res.message = "SUCCESSFUL";
+            res.id_inserted = -1;
             try
             {
-                var query = "SELECT addsale(" + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + ");";
+                var query = "SELECT addsale(" + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ",'" + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "'," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + ");";
                 _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
                    var query2 = "SELECT getlastsaleid();";
+                res.id_inserted = _context.Database.SqlQuery<Int32>(query2).FirstOrDefault(); 
                 for (int i = 0; i < sal.medicines.Count();i++)
                 {       
-                    sal.medicines[i].sale = _context.Database.SqlQuery<Int32>(query2).FirstOrDefault(); ;
+                    sal.medicines[i].sale = res.id_inserted;
                     msrep.insertMedicinebySale(sal.medicines[i]);
                 }
             }
@@ -81,7 +106,7 @@ namespace POS_GasStationPharmacy.Service
             res.message = "SUCCESSFUL";
             try
             {
-                var query = "SELECT updatesale(" + id + "," + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + "');";
+                var query = "SELECT updatesale(" + id + "," + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ",'" + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "'," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + "');";
                 _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
                 for (int i = 0; i < sal.medicines.Count(); i++)
                 {

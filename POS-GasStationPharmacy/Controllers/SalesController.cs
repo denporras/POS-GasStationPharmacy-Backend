@@ -26,6 +26,14 @@ namespace POS_GasStationPharmacy.Controllers
         {
             return repository.GetAllSales();
         }
+
+        /**
+       * GET request that get sales by payment type
+       */
+        public sale_by_payment_type Get(int sub, int cash, DateTime date)
+        {
+            return repository.GetSalesByPaymentType(sub, cash, date);
+        }
         /**
        * GET request that get one sales
        */ 
@@ -36,7 +44,7 @@ namespace POS_GasStationPharmacy.Controllers
         /**
        * POST request that inserts a sale
        */
-        public Response Post(sale sale)
+        public SalesResponse Post(sale sale)
         {
             return repository.insertSale(sale);
         }
