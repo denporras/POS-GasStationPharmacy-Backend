@@ -10,26 +10,32 @@ namespace POS_GasStationPharmacy.Service
 {
     public class ClientsRepository
     {
-        PGSDbContext _context;
+        PGSDbContext _context; //Contexto de la base de datos
         public ClientsRepository()
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all clients
+        */ 
         public List<client> GetAllClients()
         {
             var query = "SELECT * FROM getClients()";
             List<client> cli = _context.Database.SqlQuery<client>(query).ToList();
             return cli;
         }
-
+        /**
+        * GET request that get one client
+        */ 
         public client GetClientById (int id_client)
         {
             var query = "SELECT * FROM getClient(" + id_client + ");";
             client cli = _context.Database.SqlQuery<client>(query).FirstOrDefault();
             return cli;
         }
-
+        /**
+        * POST request that inserts a client
+        */ 
         public Response insertClient(client cli)
         {
             Response res = new Response();
@@ -51,7 +57,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * PUT request that updates a client
+        */ 
         public Response updateClient(int id_client, client cli)
         {
             Response res = new Response();
@@ -73,7 +81,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * DELETE request that disable a client
+        */  
         public Response deleteClient(int id_client)
         {
             Response res = new Response();

@@ -14,21 +14,27 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all employees
+        */ 
         public List<employee> GetEmployees()
         {
             var query = "SELECT * FROM getEmployees();";
             List<employee> emp = _context.Database.SqlQuery<employee>(query).ToList();
             return emp;
         }
-
+        /**
+        * GET request that get one employee
+        */ 
         public employee GetEmployeeById(int id_employee)
         {
             var query = "SELECT * FROM getEmployee(" + id_employee + ");";
             employee emp = _context.Database.SqlQuery<employee>(query).FirstOrDefault();
             return emp;
         }
-
+        /**
+        * POST request that inserts a employee
+        */
         public Response insertEmployee(employee emp)
         {
             Response res = new Response();
@@ -50,7 +56,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * PUT request that updates a employee
+        */ 
         public Response updateEmployee(int id_employee, employee emp)
         {
             Response res = new Response();
@@ -72,7 +80,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * DELETE request that disable a employee
+        */ 
         public Response deleteEmployee(int id_employee)
         {
             Response res = new Response();

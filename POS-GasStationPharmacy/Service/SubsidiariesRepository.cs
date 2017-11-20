@@ -14,21 +14,27 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all subsidiaries
+        */
         public List<subsidiary> GetAllRoles()
         {
             var query = "SELECT * FROM getSubsidiaries();";
             List<subsidiary> pharma = _context.Database.SqlQuery<subsidiary>(query).ToList();
             return pharma;
         }
-
+        /**
+        * GET request that get one subsidiary
+        */
         public subsidiary GetSubsidiary(int id_subsidiary)
         {
             var query = "SELECT * FROM getSubsidiary(" + id_subsidiary + ");";
             subsidiary sub = _context.Database.SqlQuery<subsidiary>(query).FirstOrDefault();
             return sub;
         }
-
+        /**
+        * POST request that inserts a subsidiary
+        */
         public Response insertSubsidiary(subsidiary sub)
         {
             Response res = new Response();
@@ -49,7 +55,9 @@ namespace POS_GasStationPharmacy.Service
             return res;
             
         }
-
+        /**
+        * PUT request that updates a subsidiary
+        */
         public Response updateSubsidiary(int id_subsdiary, subsidiary sub)
         {
             Response res = new Response();
@@ -69,7 +77,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * DELETE request that disable a subsidiary
+        */  
         public Response deleteSubsidiary(int id_subsidiary)
         {
             Response res = new Response();
