@@ -45,7 +45,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT addpharmaceuticalhouse('" + ph.name + "');";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -67,7 +67,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT updatepharmaceuticalhouse(" + id + ",'" + ph.name + "');";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -90,7 +90,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT deletepharmaceuticalhouse(" + id + ");";
-                pharmaceutical_house pharma = _context.Database.SqlQuery<pharmaceutical_house>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {

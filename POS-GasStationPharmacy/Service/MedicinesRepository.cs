@@ -71,7 +71,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT updatemedicine(" + id + ", '" + med.name + "'," + med.price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + med.pharmaceutical_house + ");";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -95,7 +95,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT deletemedicine(" + id + ");";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {

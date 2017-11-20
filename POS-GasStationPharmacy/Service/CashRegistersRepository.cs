@@ -46,7 +46,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                          var query = "SELECT addcashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.initial_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + "," + c.employee + ");";
-            cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
+                        _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -69,7 +69,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT updatecashregister(" + c.cash + "," + c.subsidiary + ",'" + c.initial_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.employee + ",'" + c.final_time.ToString("yyyy-MM-dd HH:mm") + "'," + c.final_cash.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ");";
-            cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
@@ -92,7 +92,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT deletecashregister(" + cash + "," + subsidiary + ",'" + initial_time.ToString("yyy-mm-dd hh:mm") + "'," + employee + ");";
-            cash_register pharma = _context.Database.SqlQuery<cash_register>(query).FirstOrDefault();
+              _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {

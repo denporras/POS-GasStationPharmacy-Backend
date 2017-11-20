@@ -109,7 +109,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT deletemedicine_by_subsidiary(" + idm + "," + ids + ");";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {
