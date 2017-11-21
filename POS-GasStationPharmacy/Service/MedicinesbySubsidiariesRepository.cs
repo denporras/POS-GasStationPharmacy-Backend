@@ -86,7 +86,7 @@ namespace POS_GasStationPharmacy.Service
             try
             {
                 var query = "SELECT updatemedicine_by_subsidiary(" + idm + "," + ids + "," + ms.quantity + "," + ms.stock_promedio + "," + ms.stock_minimo + ");";
-                _context.Database.SqlQuery<Boolean>(query).FirstOrDefault();
+                _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
             }
             catch (NpgsqlException ex)
             {

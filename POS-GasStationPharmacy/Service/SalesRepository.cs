@@ -69,6 +69,7 @@ namespace POS_GasStationPharmacy.Service
         public SalesResponse insertSale(sale sal)
         {
             MedicinesbySalesRepository msrep = new MedicinesbySalesRepository();
+            MedicinesbySubsidiariesRepository mssubrep = new MedicinesbySubsidiariesRepository();
             SalesResponse res = new SalesResponse();
             res.success = true;
             res.code = "1";
@@ -78,12 +79,18 @@ namespace POS_GasStationPharmacy.Service
             {
                 var query = "SELECT addsale(" + sal.total.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + ",'" + sal.sale_date.ToString("yyyy-MM-dd HH:mm") + "'," + sal.client + "," + sal.payment_type + "," + sal.employee + "," + sal.subsidiary + "," + sal.cash + ");";
                 _context.Database.SqlQuery<Int32>(query).FirstOrDefault();
-                   var query2 = "SELECT getlastsaleid();";
-                res.id_inserted = _context.Database.SqlQuery<Int32>(query2).FirstOrDefault(); 
+                var query2 = "SELECT getlastsaleid();";
+                res.id_inserted = _context.Database.SqlQuery<Int32>(query2).FirstOrDefault();
                 for (int i = 0; i < sal.medicines.Count();i++)
                 {       
                     sal.medicines[i].sale = res.id_inserted;
                     msrep.insertMedicinebySale(sal.medicines[i]);
+                    var query3 = "SELECT * FROM getmedicine_by_subsidiary(" + sal.medicines[i].medicine + "," + sal.subsidiary + ");";
+                    medicine_by_subsidiary ms = new medicine_by_subsidiary();
+                        ms=_context.Database.SqlQuery<medicine_by_subsidiary>(query3).FirstOrDefault();
+                    int a = ms.quantity - sal.medicines[i].quantity;
+                    var query4 = "SELECT updatemedicine_by_subsidiary(" + sal.medicines[i].medicine + "," + sal.subsidiary + "," + a + "," + ms.stock_promedio + "," + ms.stock_minimo + ");";
+                    _context.Database.SqlQuery<Int32>(query4).FirstOrDefault();
                 }
             }
             catch (NpgsqlException ex)
