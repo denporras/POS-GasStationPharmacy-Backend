@@ -19,5 +19,6 @@ namespace POS_GasStationPharmacy.Models
         public string residence { get; set; }
         public int role { get; set; }
         public int subsidiary { get; set; }
+        public int company { get; set; }
     }
 }
