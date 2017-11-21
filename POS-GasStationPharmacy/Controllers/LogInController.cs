@@ -9,6 +9,9 @@ using System.Web.Http;
 
 namespace POS_GasStationPharmacy.Controllers
 {
+    /**
+    * Controller that attemps log in in the server
+    */
     public class LogInController : ApiController
     {
         LogInRepository repository;
@@ -16,6 +19,9 @@ namespace POS_GasStationPharmacy.Controllers
         {
             repository = new LogInRepository();
         }
+        /**
+        * GET attemps log in
+        */ 
         public LogInResponse Get(string username, string password)
         {
             return repository.attempLogIn(username, password);

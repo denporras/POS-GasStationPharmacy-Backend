@@ -13,7 +13,9 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET attemps log in
+        */ 
         public LogInResponse attempLogIn(string user_name, string password)
         {
             LogInResponse res = new LogInResponse();

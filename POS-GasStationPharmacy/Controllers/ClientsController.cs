@@ -9,6 +9,9 @@ using System.Web.Http;
 
 namespace POS_GasStationPharmacy.Controllers
 {
+    /**
+    * Controller that does all the HTTP requests of Clients
+    */
     public class ClientsController : ApiController
     {
         ClientsRepository repository;
@@ -16,22 +19,37 @@ namespace POS_GasStationPharmacy.Controllers
         {
             repository = new ClientsRepository();
         }
+        /**
+        * GET request that get all clients
+        */ 
         public List<client> Get()
         {
             return repository.GetAllClients();
         }
+        /**
+        * GET request that get one client
+        */ 
         public client Get(int id)
         {
             return repository.GetClientById(id);
         }
+        /**
+        * POST request that inserts a client
+        */ 
         public Response Post(client cli)
         {
             return repository.insertClient(cli);
         }
+        /**
+        * PUT request that updates a client
+        */ 
         public Response Put(int id, client cli)
         {
             return repository.updateClient(id, cli);
         }
+        /**
+        * DELETE request that disable a client
+        */  
         public Response Delete(int id)
         {
             return repository.deleteClient(id);

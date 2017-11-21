@@ -14,21 +14,27 @@ namespace POS_GasStationPharmacy.Service
         {
             _context = new PGSDbContext();
         }
-
+        /**
+        * GET request that get all companies
+        */
         public List<company> GetAllCompanies()
         {
             var query = "SELECT * FROM getCompanies();";
             List<company> pharma = _context.Database.SqlQuery<company>(query).ToList();
             return pharma;
         }
-
+        /**
+        * GET request that get one company
+        */ 
         public company GetCompany(int id_company)
         {
             var query = "SELECT * FROM getCompany(" + id_company + ");";
             company sub = _context.Database.SqlQuery<company>(query).FirstOrDefault();
             return sub;
         }
-
+        /**
+        * POST request that inserts a company
+        */ 
         public Response insertCompany(company cop)
         {
             Response res = new Response();
@@ -48,7 +54,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * PUT request that updates a company
+        */
         public Response updateCompany(int id_company, company cop)
         {
             Response res = new Response();
@@ -68,7 +76,9 @@ namespace POS_GasStationPharmacy.Service
             }
             return res;
         }
-
+        /**
+        * DELETE request that disable a company
+        */
         public Response deleteCompany(int id_company)
         {
             Response res = new Response();
