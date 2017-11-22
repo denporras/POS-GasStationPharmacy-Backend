@@ -33,45 +33,61 @@ namespace POS_GasStationPharmacy.Controllers
             if (id == 1)
             {
                 fileName = "BestSelling";
-                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName+ ".rpt"));
-                cryRpt.SetParameterValue("Inidate", initial);
+
+                cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+             
+                cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
+           
                 cryRpt.SetParameterValue("Fidate", final);
+                cryRpt.SetParameterValue("Inidate", initial);
                 cryRpt.SetParameterValue("Compa", company);
-                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName));
             }
             else if (id == 2)
             {
                 fileName = "MedBySubEm";
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+                
+                cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
+              
                 cryRpt.SetParameterValue("Compa", company);
-                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName));
             }
             else if (id == 3)
             {
                 fileName = "LowInv";
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+               
+                cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
+                
                 cryRpt.SetParameterValue("Compa", company);
-                //cryRpt.SetParameterValue("lowInv", lowInv);
-                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName));
             }
             else if (id == 4)
             {
                 fileName = "CashAVG";
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+               
+                cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
+              
                 cryRpt.SetParameterValue("Compa", company);
                 cryRpt.SetParameterValue("DateDay", initial);
-                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName));
             }
             else if (id == 5)
             {
                 fileName = "BillsDay";
                 cryRpt.Load(HttpContext.Current.Server.MapPath("~/Reports/" + fileName + ".rpt"));
+              
+                cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
+                
                 cryRpt.SetParameterValue("Compa", company);
-
                 cryRpt.SetParameterValue("DateDay", initial);
-                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"));
+                cryRpt.ExportToDisk(ExportFormatType.PortableDocFormat, HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName));
             }
-
+            //cryRpt.SetDatabaseLogon("grupomaravilla", "Maravilla0", "aa6eybgl4mgz1n.cpgbjsyapasj.us-east-2.rds.amazonaws.com", "POS_GasStationPharmacy", true);
             else
             {
                 flag = 0;
@@ -80,16 +96,16 @@ namespace POS_GasStationPharmacy.Controllers
             if (flag == 1)
             {
                 response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName + ".rpt"), FileMode.Open, FileAccess.Read));
+                response.Content = new StreamContent(new FileStream(HttpContext.Current.Server.MapPath("~/Reports/Reports_PDF/" + fileName), FileMode.Open, FileAccess.Read));
                 response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("inline");
                 response.Content.Headers.ContentDisposition.FileName = fileName + ".pdf";
                 response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
-         
+
             }
 
 
             return response;
         }
     }
-        
+
 }

@@ -90,7 +90,7 @@ namespace POS_GasStationPharmacy.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Fidate {
+        public CrystalDecisions.Shared.IParameterField Parameter_Compa {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -98,7 +98,7 @@ namespace POS_GasStationPharmacy.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Inidate {
+        public CrystalDecisions.Shared.IParameterField Parameter_Fidate {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -106,7 +106,7 @@ namespace POS_GasStationPharmacy.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Compa {
+        public CrystalDecisions.Shared.IParameterField Parameter_Inidate {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }
